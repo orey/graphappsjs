@@ -6,64 +6,82 @@
 //-----------------------------------------------
 'use strict';
 
-const uuidv4 = require('uuid/v4');
+const utils = require('./utils');
 
 
 // Module global name
 const GA = {}
 
 
-GA.createId = () => {
-    return uuidv4();
+//Constants
+GA.TYPES = {
+    DOMAIN : "DOMAIN",
+    NODE   : "NODE",
+    EDGE   : "EDGE",
+    WHATVERNODE : "WHATEVERNODE",
+    WHATVEREDGE : "WHATEVEREDGE"
 };
 
-
-// Create the prototype chain
-GA.construct = (o) => {
-    var F = function () {};
-    F.prototype = o;
-    var that = new F();
-    that.id = uuidv4();
-//    that.type = "undefined";
-    that.print = () => {console.log(that);};
-    return that;
-};
-
-GA.CONST = {
-    DOMAIN : "DOMAIN"
-};
+GA.CONST = {UNDEF : 'undefined'};
 
 
+// Domain
+GA.RootDomain = { name : GA.CONST.UNDEF, type : GA.TYPES.DOMAIN };
 
-GA.OriginDomain = {
-    type : GA.CONST.DOMAIN,
-};
 
 GA.Domain = (name) => {
-    var that = GA.construct(GA.OriginDomain);
-    that.domainName = name;
+    var that = utils.Construct(GA.RootDomain);
+    if (name) that.name = name;
     return that;
 };
 
 
+// Node
+GA.RootNode = {obj : {}, type : GA.TYPES.NODE};
+
+GA.Node = (obj, type) => {
+    var that = utils.Construct(GA.RootNode);
+    if (obj) that.obj = obj;
+    if (type) that.type = type;
+    return that;
+};
+
+//Edge
+GA.RootEdge ={
+    obj    : {},
+    type   : GA.TYPES.EDGE,
+    source : GA.CONST.UNDEF,
+    target : GA.CONST.UNDEF
+};
+
+GA.Edge = (source, dest, obj) => {
+    var that = utils.Construct(GA.RootEdge);
+    if (source)	that.source = source;
+    if (dest) that.dest = dest;
+    if (obj) that.obj = obj;
+};
+
+//Whatever
+GA.WhateverNode = {type : GA.TYPES.WHATEVERNODE};
+GA.WhateverEdge = {type : GA.TYPES.WHATEVEREDGE};
 
 
-GA.Node = (obj) => {
-    this.obj = obj;
+//Graph
+GA.RootGraph = {
+    name : GA.CONST.UNDEF,
+    nodes : [],
+    edges :[]
 };
 
 
-GA.Edge = (source, dest, obj) => {
-    this.source = source;
-    this.dest = dest;
-    this.obj = obj;
-}
+
+
 
 
 //------------------------------Exports
 module.exports = {
-    Domain : GA.Domain,
-    Node : GA.Node,
-    Edge : GA.Edge,
-    createId : GA.createId
-}
+    Domain   : GA.Domain,
+    Node     : GA.Node,
+    Edge     : GA.Edge,
+    Whatever : GA.Whatever
+};

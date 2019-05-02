@@ -6,6 +6,13 @@
 //-----------------------------------------------
 'use strict';
 
+const uuidv4 = require('uuid/v4');
+
+
+//-----------------------------------------------
+// This function get all properties for an object including
+// the ones of the prototype chain.
+//-----------------------------------------------
 function getAllProperties(o) {
     var props = []
 
@@ -29,6 +36,12 @@ function getAllProperties(o) {
     return prop_obj;
 }
 
+
+//-----------------------------------------------
+// This function prints the chain of properties
+// under a tree form. It includes the properties
+// of the prototype chain.
+//-----------------------------------------------
 function printChain(o){
     console.log("=== printChain (begin) ===");
     var level = 1;
@@ -55,8 +68,35 @@ function printChain(o){
 }
 
 
+//-----------------------------------------------
+// Creates a unique ID
+//-----------------------------------------------
+function createId(){
+    return uuidv4();
+}
+
+
+//-----------------------------------------------
+// This function builds a new object based on a
+// previous one. It augments the object (with an id)
+//-----------------------------------------------
+function Construct(o) {
+    var F = function () {};
+    F.prototype = o;
+    var that = new F();
+    that.id = uuidv4();
+    that.print = function(){console.log(that);};
+    return that;
+};
+
+
+//-----------------------------------------------
+// Exports
+//-----------------------------------------------
 module.exports = {
     getAllProperties : getAllProperties,
-    printChain       : printChain
+    printChain       : printChain,
+    createId         : createId,
+    Construct        : Construct
 };
 

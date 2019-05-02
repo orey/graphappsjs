@@ -6,7 +6,7 @@
 //-----------------------------------------------
 'use strict';
 
-const ga = require('./graphapps.js');
+const ga    = require('./graphapps.js');
 const utils = require('./utils.js');
 
 
@@ -54,9 +54,9 @@ function getProperties(o) {
 
 function testImport() {
     console.log(ga);
-    console.log(ga.createId());
-    console.log(ga.createId());
-    console.log(ga.createId());
+    console.log(utils.createId());
+    console.log(utils.createId());
+    console.log(utils.createId());
 }
 
 function testDomain(){
@@ -71,6 +71,9 @@ function testDomain(){
 	console.log(tab[i] + ': ' + dom1[tab[i]]);
     console.log(utils.getAllProperties(dom1));
     utils.printChain(dom1);
+    console.log(typeof dom1);
+    console.log(typeof Object.getPrototypeOf(dom1));
+    
     
 }
 
