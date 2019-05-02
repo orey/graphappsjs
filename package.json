@@ -1,0 +1,27 @@
+{
+  "name": "graphappsjs",
+  "version": "1.0.0",
+  "description": "GraphApps JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orey/graphappsjs.git"
+  },
+  "keywords": [
+    "graph",
+    "apps",
+    "js"
+  ],
+  "author": "Olivier Rey",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/orey/graphappsjs/issues"
+  },
+  "homepage": "https://github.com/orey/graphappsjs#readme",
+  "dependencies": {
+    "uuid": "^3.3.2"
+  }
+}
