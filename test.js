@@ -70,6 +70,7 @@ function testDomain(){
     for (var i in tab)
 	console.log(tab[i] + ': ' + dom1[tab[i]]);
     console.log(utils.getAllProperties(dom1));
+    utils.printChain(dom1);
     
 }
 

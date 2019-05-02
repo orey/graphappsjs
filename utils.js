@@ -29,5 +29,34 @@ function getAllProperties(o) {
     return prop_obj;
 }
 
-module.exports = {getAllProperties : getAllProperties};
+function printChain(o){
+    console.log("=== printChain (begin) ===");
+    var level = 1;
+
+    function print(level, value){
+	console.log("   ".repeat(level-1) + "+--- " + value);
+    }
+    
+    function browseProperties (o,level) {
+	var temp = Object.getOwnPropertyNames(o);
+	for (var i in temp)
+	    print(level, temp[i] + ': ' + o[temp[i]]);
+	var proto = Object.getPrototypeOf(o);
+	if ((proto === undefined) || (proto === null))
+	    return;
+	else {
+	    level += 1;
+	    browseProperties(proto,level);
+	}
+    }
+
+    browseProperties(o, 1);
+    console.log("=== printChain (end) ===");
+}
+
+
+module.exports = {
+    getAllProperties : getAllProperties,
+    printChain       : printChain
+};
 
